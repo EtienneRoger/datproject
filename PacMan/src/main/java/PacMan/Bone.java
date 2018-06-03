@@ -6,7 +6,7 @@ public class Bone extends Rectangle{
 
 	private static final long serialVersionUID = 1L;
 
-	public Bone(int x, int y) {
+	public Bone(int x, int y) {								//get initial position and the space
 		setBounds(x,y,32,32);
 	}
 	

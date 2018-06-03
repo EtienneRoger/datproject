@@ -20,7 +20,7 @@ public class Level{
 	
 	public List<Purse> purses;
 	public List<Crystal> crystal;
-	public List<Fireball> fireball;
+	public static List<Fireball> fireball;
 	
 	public Level(String path) {
 		purses = new ArrayList<Purse>();

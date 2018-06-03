@@ -7,7 +7,7 @@ public class Enemy extends Rectangle{
 
 	private static final long serialVersionUID = 1L;
 
-	public Enemy(int x, int y){
+	public Enemy(int x, int y){					//get initial position and the space
 		setBounds(x,y,32,32);
 		
 	}

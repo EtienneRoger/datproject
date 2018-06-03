@@ -9,24 +9,26 @@ public class Fireball extends Rectangle{
 	private int speed = 32;
 	
 	
-	public Fireball(int x, int y) {
+	public Fireball(int x, int y) {						//get initial position and the space
 		setBounds(x,y,32,32);
 	}
 	
 	public void tick() {
-		
+/*		
 		Player player = Game.player;
-		
+		Level level = Game.level;
 
 		while(canMove(x,y) == true) {
+			System.out.println("la fierball veut bouger");
 			x = x + player.xfireDir;
 			y = y + player.yfireDir;
-			
+			level.fireball.remove(0);
+			level.crystal.add(new Crystal(x*32,y*32));
 		}
 		player.xfireDir = -1 * player.xfireDir;
 		player.yfireDir = -1 * player.yfireDir;
-		
-		
+		System.out.println("ca passe par la");
+		*/
 		
 	}
 	

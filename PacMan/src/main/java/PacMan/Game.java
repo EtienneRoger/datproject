@@ -22,6 +22,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	
 	public static Player player;				// the player
 	public static Level level;					// the level
+	
 	public static SpriteSheet boneSprite;		// the different type of sprite
 	public static SpriteSheet vertiBoneSprite;	
 	public static SpriteSheet horiBoneSprite;
@@ -121,7 +122,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.black);
+		g.setColor(Color.black);							
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		player.render(g, count);
 		level.render(g);
@@ -153,11 +154,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			}
 			
 			if(System.currentTimeMillis() - timer >= 1000) {
-			//	System.out.println(fps);
+			//	System.out.println(fps);										//Show the actual fps
 				fps = 0;
 				timer+=1000;
 			}
-			//System.out.println("Your Score: " + Player.Score + " points");
+			//System.out.println("Your Score: " + Player.Score + " points");	//Show your actual score
 
 		}
 		stop();
@@ -165,8 +166,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 
 	public static void main( String[] args )
     {
-		Game game = new Game();
-		JFrame frame = new JFrame();
+		Game game = new Game();									//initialize a game
+		JFrame frame = new JFrame();							//initialize and set the window
 		frame.setTitle(Game.TITLE);
 		frame.add(game);
 		frame.setResizable(false);
@@ -175,24 +176,26 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		game.start();
+		game.start();											//launch game
 		
     }
-
-	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT) player.right = false;
-		if(e.getKeyCode() == KeyEvent.VK_LEFT) player.left = false;
-		if(e.getKeyCode() == KeyEvent.VK_UP) player.up = false;
-		if(e.getKeyCode() == KeyEvent.VK_DOWN) player.down = false;
-		if(e.getKeyCode() == KeyEvent.VK_SPACE) player.shot = false;
-	}
 	
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {								//Method for take the keyboard information (when you press)
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT) player.right = true;
 		if(e.getKeyCode() == KeyEvent.VK_LEFT) player.left = true;
 		if(e.getKeyCode() == KeyEvent.VK_UP) player.up = true;
 		if(e.getKeyCode() == KeyEvent.VK_DOWN) player.down = true;
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) player.shot = true;
+		
+	}
+	
+	public void keyReleased(KeyEvent e) {								//Method for take the keyboard information (when you release)
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT) player.right = false;
+		if(e.getKeyCode() == KeyEvent.VK_LEFT) player.left = false;
+		if(e.getKeyCode() == KeyEvent.VK_UP) player.up = false;
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) player.down = false;
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) player.shot = false;
+		
 	}
 	
 	public void keyTyped(KeyEvent e) {}

@@ -6,7 +6,7 @@ public class Vertical_Bone extends Rectangle{
 
 	private static final long serialVersionUID = 1L;
 
-	public Vertical_Bone(int x, int y) {
+	public Vertical_Bone(int x, int y) {					//get initial position and the space
 		setBounds(x,y,32,32);
 	}
 	

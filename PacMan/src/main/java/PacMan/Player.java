@@ -5,14 +5,17 @@ import java.awt.*;
 public class Player extends Rectangle{
 
 	private static final long serialVersionUID = 1L;
-
+	private int speed = 32;								//set the "speed" of our player who move one case by one case, so 32pixel
 	
-	public boolean right,left,up,down,shot;
-	private int speed = 32;
-	public int xfireDir, yfireDir;
-	public static int Score = 0;
+	public boolean right,left,up,down,shot;				//initialize the action of the player
 	
-	public Player (int x, int y) {
+	public int xfireDir, yfireDir;						
+	
+	public static int Score = 0;						//initialize the player's score
+	
+	
+	
+	public Player (int x, int y) {						//get initial position and the space
 		
 		setBounds(x,y,32,32);
 		
@@ -23,7 +26,7 @@ public class Player extends Rectangle{
 		
 		Level level = Game.level;
 
-		if(right && canMove(x+speed,y))x+=speed;
+		if(right && canMove(x+speed,y))x+=speed;										//set the new position of the player 
 		if(left && canMove(x-speed,y))x-=speed;
 		if(up && canMove(x,y-speed))y-=speed;
 		if(down && canMove(x,y+speed))y+=speed;
@@ -33,7 +36,7 @@ public class Player extends Rectangle{
 		if(right && up && canMove(x+speed,y-speed)) {x+=speed; y-=speed;}
 		
 		
-		if(level.fireball.size() == 0){
+		if(level.fireball.size() == 0){								//Set the fireball position with the right direction
 			if(shot && right) {
 				level.fireball.add(new Fireball(x-speed,y));
 				xfireDir = -1;
@@ -54,12 +57,12 @@ public class Player extends Rectangle{
 				xfireDir = 0;
 				yfireDir = -1;
 			}
-		}else {System.out.println("la fireball est lance");}
+		} // else {System.out.println("la fireball est lance");}
 		
 		
 		for(int i = 0; i < level.crystal.size(); i++) {
 			if(this.intersects(level.crystal.get(i))){
-				level.crystal.remove(i);
+				level.crystal.remove(i);							//remove block of the list if the player is in the same position
 				break;
 			}
 		}
@@ -67,7 +70,7 @@ public class Player extends Rectangle{
 		for(int i = 0; i < level.purses.size(); i++) {
 			if(this.intersects(level.purses.get(i))){
 				level.purses.remove(i);
-				Score = Score + 10;
+				Score = Score + 10;									//Add score for pick a purse
 				break;
 			}
 		}
@@ -81,22 +84,22 @@ public class Player extends Rectangle{
 		
 	}
 	
-	public boolean canMove(int nextX, int nextY) {
+	public boolean canMove(int nextX, int nextY) {										// Look for collision around the player
 
 		Rectangle bounds = new Rectangle(nextX, nextY, width, height);
 		Level level = Game.level;
 		
-		for(int xx = 0; xx < level.bones.length; xx++) {
+		for(int xx = 0; xx < level.bones.length; xx++) {								// loop for take all near block
 			for(int yy = 0; yy < level.bones[0].length; yy++) {
 				if(level.bones[xx][yy] != null) {
-					if(bounds.intersects(level.bones[xx][yy])) {
-						return false;
+					if(bounds.intersects(level.bones[xx][yy])) {						// if it is a bones
+						return false;													// he can't
 					}
 				}
 			}
 		}
 		
-		for(int xx = 0; xx < level.vertiBones.length; xx++) {
+		for(int xx = 0; xx < level.vertiBones.length; xx++) {				
 			for(int yy = 0; yy < level.vertiBones[0].length; yy++) {
 				if(level.vertiBones[xx][yy] != null) {
 					if(bounds.intersects(level.vertiBones[xx][yy])) {
@@ -106,7 +109,7 @@ public class Player extends Rectangle{
 			}
 		}
 		
-		for(int xx = 0; xx < level.horiBones.length; xx++) {
+		for(int xx = 0; xx < level.horiBones.length; xx++) {							
 			for(int yy = 0; yy < level.horiBones[0].length; yy++) {
 				if(level.horiBones[xx][yy] != null) {
 					if(bounds.intersects(level.horiBones[xx][yy])) {
@@ -119,16 +122,16 @@ public class Player extends Rectangle{
 		for(int xx = 0; xx < level.gate.length; xx++) {
 			for(int yy = 0; yy < level.gate[0].length; yy++) {
 				if(level.gate[xx][yy] != null && level.crystal.size() != 0) {
-					if(bounds.intersects(level.gate[xx][yy])) {						//Si on veut differencier le cas ou la porte est ferme et l on meurt ou ouverte et l on gagne
-						Score = 0;
-						Game.player = new Player(32,32);
-						Game.level = new Level("/level/map.png");
+					if(bounds.intersects(level.gate[xx][yy])) {		
+						Score = 0;														//Reset Score
+						Game.player = new Player(32,32);								//Initialize a new player
+						Game.level = new Level("/level/map.png");						//Initialize the same map
 					}
 				}else if(level.gate[xx][yy] != null && level.crystal.size() == 0) {
 					if(bounds.intersects(level.gate[xx][yy])) {
-						Score = Score + 50;
-						Game.player = new Player(32,32);
-						Game.level = new Level("/level/map.png");
+						Score = Score + 50;												//Add 50pts if you finish the level
+						Game.player = new Player(32,32);								//Initialize a new player
+						Game.level = new Level("/level/map.png");						//Initialize the next map (who doesnt exist actually)
 					}
 				}
 			}
@@ -138,18 +141,18 @@ public class Player extends Rectangle{
 			for(int yy = 0; yy < level.enemies[0].length; yy++) {
 				if(level.enemies[xx][yy] != null) {
 					if(bounds.intersects(level.enemies[xx][yy])) {
-						Score = 0;
-						Game.player = new Player(32,32);
-						Game.level = new Level("/level/map.png");
+						Score = 0;														//Reset Score
+						Game.player = new Player(32,32);								//Initialize a new player
+						Game.level = new Level("/level/map.png");						//Initialize the same map
 					}
 				}
 			}
 		}
 		
-		return true;
+		return true;																	//for all other block, the player can move on
 	}
 	
-	public void render (Graphics g, int c) {
+	public void render (Graphics g, int c) {					// set Player's graphics POSITION and SIZE with the orientation "contrainte"
 		
 		
 		
