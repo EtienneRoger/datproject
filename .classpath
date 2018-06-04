@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="PacMan/src/main/java"/>
-	<classpathentry kind="src" path="PacMan/src/test/java"/>
-	<classpathentry kind="lib" path="PacMan/target/PacMan-0.0.1-SNAPSHOT.jar"/>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="C:/Users/ehmmr/OneDrive/Documents/exia.Cesi/UE 6/PROJET/datproject/PacMan/res"/>
-	<classpathentry kind="lib" path="C:/Users/ehmmr/Downloads/mysql-connector-java-8.0.11.jar"/>
-=======
-	<classpathentry kind="lib" path="C:/Users/Exochasse/Desktop/datproject-master/PacMan/res"/>
->>>>>>> 5184257a9777b708e455d27dcb44eeb3d878a4a3
-	<classpathentry kind="output" path="PacMan/target/classes"/>
+	<classpathentry kind="src" path="sprite"/>
+	<classpathentry kind="src" path="PacMan"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
