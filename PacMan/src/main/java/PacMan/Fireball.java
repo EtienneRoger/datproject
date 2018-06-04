@@ -14,8 +14,8 @@ public class Fireball extends Rectangle{
 	}
 	
 	public void tick() {
-/*		
-		Player player = Game.player;
+		
+		/*Player player = Game.player;
 		Level level = Game.level;
 
 		while(canMove(x,y) == true) {
@@ -27,8 +27,8 @@ public class Fireball extends Rectangle{
 		}
 		player.xfireDir = -1 * player.xfireDir;
 		player.yfireDir = -1 * player.yfireDir;
-		System.out.println("ca passe par la");
-		*/
+		System.out.println("ca passe par la");*/
+		
 		
 	}
 	
