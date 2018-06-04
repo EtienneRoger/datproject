@@ -10,7 +10,7 @@ public class Player extends Rectangle{
 	
 	public boolean right,left,up,down,shot;				//initialize the action of the player
 	
-	public int xfireDir, yfireDir;						
+						
 	
 	public static int Score = 0;						//initialize the player's score
 	
@@ -36,32 +36,7 @@ public class Player extends Rectangle{
 		if(right && down && canMove(x+speed,y+speed)) {x+=speed; y+=speed;}
 		if(right && up && canMove(x+speed,y-speed)) {x+=speed; y-=speed;}
 		
-		if(shot && Game.fireball.x < 0 ) {
-			if(right) {
-				Game.fireball.x = x-32;
-				Game.fireball.y = y;
-				xfireDir = -1;
-				yfireDir = 0;
-			}
-			if(left) {
-				Game.fireball.x = x+32;
-				Game.fireball.y = y;
-				xfireDir = 1;
-				yfireDir = 0;
-			}
-			if(up) {
-				Game.fireball.x = x;
-				Game.fireball.y = y+32;
-				xfireDir = 0;
-				yfireDir = 1;
-			}
-			if(down) {
-				Game.fireball.x = x;
-				Game.fireball.y = y-32;
-				xfireDir = 0;
-				yfireDir = -1;
-			}
-		}
+
 		
 		
 		for(int i = 0; i < level.crystal.size(); i++) {
@@ -123,76 +98,87 @@ public class Player extends Rectangle{
 						Score = 0;														//Reset Score
 						Game.player = new Player(32,32);								//Initialize a new player
 						Game.level = new Level("/level/map.png");						//Initialize the same map
+						Game.fireball = new Fireball(-32,-32);
 					}
 				}else if(level.gate[xx][yy] != null && level.crystal.size() == 0) {
 					if(bounds.intersects(level.gate[xx][yy])) {
 						Score = Score + 50;												//Add 50pts if you finish the level
 						Game.player = new Player(32,32);								//Initialize a new player
 						Game.level = new Level("/level/map.png");						//Initialize the next map (who doesnt exist actually)
+						Game.fireball = new Fireball(-32,-32);
 					}
 				}
 			}
 		}
-		
-		for(int xx = 0; xx < level.enemies.length; xx++) {
-			for(int yy = 0; yy < level.enemies[0].length; yy++) {
-				if(level.enemies[xx][yy] != null) {
-					if(bounds.intersects(level.enemies[xx][yy])) {
-						Score = 0;														//Reset Score
-						Game.player = new Player(32,32);								//Initialize a new player
-						Game.level = new Level("/level/map.png");						//Initialize the same map
-					}
-				}
+
+		for(int i = 0; i < level.enemies.size(); i++) {
+			if(this.intersects(level.enemies.get(i))){
+				Score = 0;														//Reset Score
+				Game.player = new Player(32,32);								//Initialize a new player
+				Game.level = new Level("/level/map.png");						//Initialize the same map
+				Game.fireball = new Fireball(-32,-32);
 			}
 		}
 		
 		return true;																	//for all other block, the player can move on
 	}
 	
-	public void render (Graphics g) {					// set Player's graphics POSITION and SIZE with the orientation "contrainte"
+	public void render(Graphics g) {					// set Player's graphics POSITION and SIZE with the orientation "contrainte"
 		
 		
-		if(right == true && up == true) {
+		if(right && up) {
 			SpriteSheet sheet = Game.playerRU;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else if(right == true && down == true) {
+		}else if(right&& down) {
 			SpriteSheet sheet = Game.playerRB;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else if(left == true && up == true) {
+		}else if(left&& up) {
 			SpriteSheet sheet = Game.playerLU;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else if(left == true && down == true) {
+		}else if(left && down) {
 			SpriteSheet sheet = Game.playerLB;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else if(right ==true) {
+		}else if(right) {
 			SpriteSheet sheet = Game.playerR;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else if(left ==true) {
+		}else if(left) {
 			SpriteSheet sheet = Game.playerL;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else if(up ==true) {
+		}else if(up) {
 			SpriteSheet sheet = Game.playerU;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else if(down ==true) {
+		}else if(down) {
 			SpriteSheet sheet = Game.playerB;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else {
-				SpriteSheet sheet = Game.playerL;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);
-		/*		SpriteSheet sheet = Game.playerLU;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				SpriteSheet sheet = Game.playerU;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				SpriteSheet sheet = Game.playerRU;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				SpriteSheet sheet = Game.playerR;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				SpriteSheet sheet = Game.playerRB;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				SpriteSheet sheet = Game.playerB;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				SpriteSheet sheet = Game.playerLB;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);  */
+		}else {	
+			for(int i = 0; i < 64; i++) {
+				if(i >= 0 && i < 7) {
+					SpriteSheet sheet = Game.playerL;
+					g.drawImage(sheet.getSprite(0,0),x,y,null);
+				}else if(i >= 7 && i < 15) {
+					SpriteSheet sheet = Game.playerLU;
+					g.drawImage(sheet.getSprite(0,0),x,y,null);
+				}else if(i >= 15 && i < 23) {
+					SpriteSheet sheet = Game.playerU;
+					g.drawImage(sheet.getSprite(0,0),x,y,null);
+				}else if(i >= 23 && i < 31) {
+					SpriteSheet sheet = Game.playerRU;
+					g.drawImage(sheet.getSprite(0,0),x,y,null);
+				}else if(i >= 31 && i < 39) {
+					SpriteSheet sheet = Game.playerR;
+					g.drawImage(sheet.getSprite(0,0),x,y,null);
+				}else if(i >= 39 && i < 47) {
+					SpriteSheet sheet = Game.playerRB;
+					g.drawImage(sheet.getSprite(0,0),x,y,null);
+				}else if(i >= 47 && i < 55) {
+					SpriteSheet sheet = Game.playerB;
+					g.drawImage(sheet.getSprite(0,0),x,y,null);
+				}else if(i >= 55 && i < 63) {
+					SpriteSheet sheet = Game.playerLB;
+					g.drawImage(sheet.getSprite(0,0),x,y,null); 
+				}
+			System.out.println(i);
+			}	
 		}
 			
 	}

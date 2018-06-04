@@ -12,6 +12,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 
 	private boolean isRunning = false;			//Variable to know if the game is running
+	private boolean restart = false;
 			
 	public static final int X_SIZE = 20, Y_SIZE = 13;										// Number of Sprite per Axe
 	public static final int SPRITE_SIZE = 32;												// Size of a Sprite
@@ -23,7 +24,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static Player player;				// the player
 	public static Level level;					// the level
 	public static Fireball fireball;			// the fireball
-	
+
 	public static SpriteSheet boneSprite;		// the different type of sprite
 	public static SpriteSheet vertiBoneSprite;	
 	public static SpriteSheet horiBoneSprite;
@@ -47,6 +48,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static SpriteSheet fireball_2;
 	public static SpriteSheet fireball_3;
 	public static SpriteSheet fireball_4;
+	public static SpriteSheet fireball_5;
 	
 	public int count = 0;
 	
@@ -60,10 +62,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		addKeyListener(this);
 		player = new Player(32,32);											//add a player with his position
 		level = new Level("/level/map.png");								//Show the root of each sprite used
-		fireball = new Fireball(-32,-32);				
+		fireball = new Fireball(-32,-32);									//add the fireball outside the windows for put it in the right POSITION when we press enter		
+		
 		boneSprite = new SpriteSheet("/sprite/bone.png");
-		
-		
 		vertiBoneSprite = new SpriteSheet("/sprite/vertical_bone.png");
 		horiBoneSprite = new SpriteSheet("/sprite/horizontal_bone.png");
 		purseSprite = new SpriteSheet("/sprite/purse.png");
@@ -86,7 +87,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		fireball_2 = new SpriteSheet("/sprite/fireball_2.png");
 		fireball_3 = new SpriteSheet("/sprite/fireball_3.png");
 		fireball_4 = new SpriteSheet("/sprite/fireball_4.png");
-
+		fireball_5 = new SpriteSheet("/sprite/fireball_5.png");
 
 	}
 	
@@ -113,10 +114,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 	}
 
-	private void tick() {
+	private void tick() {	
 		player.tick();
 		level.tick();
 		fireball.tick();
+		
 	}			
 		
 	private void render() {
@@ -142,7 +144,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		int fps = 0;
 		double timer = System.currentTimeMillis();	
 		long lastTime = System.nanoTime();
-		double targetTick = 8.0;					
+		double targetTick = 9.0;					
 		double delta = 0;
 		double ns = 1000000000 / targetTick;
 		
@@ -160,12 +162,19 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			}
 			
 			if(System.currentTimeMillis() - timer >= 1000) {
-				System.out.println(fps);										//Show the actual fps
+				System.out.println("FPS : " + fps);										//Show the actual fps
 				fps = 0;
 				timer+=1000;
 			}
-		//	System.out.println("Your Score: " + Player.Score + " points");	//Show your actual score
-
+//			System.out.println("Your Score: " + Player.Score + " points");	//Show your actual score
+			
+			if(restart) {												//Restart the game if the Back_Space button is pressed
+				Player.Score = 0;										//Reset Score
+				player = new Player(32,32);								//Initialize a new player
+				level = new Level("/level/map.png");					//Initialize the same map
+				fireball = new Fireball(-32,-32);
+			}
+			
 		}
 		stop();
 	}
@@ -192,6 +201,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_UP) player.up = true;
 		if(e.getKeyCode() == KeyEvent.VK_DOWN) player.down = true;
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) player.shot = true;
+		if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) restart = true;
+
 		
 	}
 	
@@ -200,8 +211,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_LEFT) player.left = false;
 		if(e.getKeyCode() == KeyEvent.VK_UP) player.up = false;
 		if(e.getKeyCode() == KeyEvent.VK_DOWN) player.down = false;
-	
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) player.shot = false;
+		if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) restart = false;
+
 		
 	}
 	

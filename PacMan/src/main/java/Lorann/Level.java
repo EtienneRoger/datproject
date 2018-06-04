@@ -17,14 +17,18 @@ public class Level{
 	public Vertical_Bone[][] vertiBones;
 	public Horizontal_Bone[][] horiBones;
 	public Gate[][] gate;
-	public Enemy[][] enemies;
 	
 	public List<Purse> purses;
 	public List<Crystal> crystal;
+	public List<Enemy> enemies;
 	
 	public Level(String path) {
+		
+		
+		
 		purses = new ArrayList<Purse>();
 		crystal = new ArrayList<Crystal>();
+		enemies = new ArrayList<Enemy>();
 		
 		try {
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
@@ -35,7 +39,6 @@ public class Level{
 			vertiBones = new Vertical_Bone[width][height];
 			horiBones = new Horizontal_Bone[width][height];
 			gate = new Gate[width][height];
-			enemies = new Enemy[width][height];
 			
 			map.getRGB(0, 0, width, height, pixels, 0, width);
 			
@@ -56,7 +59,8 @@ public class Level{
 					}else if (val == 0xFF646464) {
 						gate[xx][yy] = new Gate(xx*32,yy*32);
 					}else if (val == 0xFFFF0000) {
-						enemies[xx][yy] = new Enemy(xx*32,yy*32);
+						enemies.add(new Enemy(xx*32,yy*32));
+
 					}
 					
 				}
@@ -68,7 +72,9 @@ public class Level{
 	}
 
 	public void tick() {
-
+		for(int i = 0; i < enemies.size(); i++) {
+			enemies.get(i).tick();
+		}
 		
 	}
 	
@@ -97,19 +103,16 @@ public class Level{
 			}
 		}
 		
-		for(int x = 0; x < width; x++) {
-			for(int y = 0; y < height; y++) {
-				if(enemies[x][y] != null) enemies[x][y].render(g);
-			}
-		}
-		
 		for(int i = 0; i < purses.size(); i++) {
 			purses.get(i).render(g);
 		}
-		
+	
 		for(int i = 0; i < crystal.size(); i++) {
 			crystal.get(i).render(g);
 		}
 		
+		for(int i = 0; i < enemies.size(); i++) {
+			enemies.get(i).render(g, i);
+		}
 	}
 }
