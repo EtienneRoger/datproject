@@ -2,16 +2,11 @@ package Lorann;
 
 import java.awt.*;
 
-import PacMan.Game;
-import PacMan.Level;
-import PacMan.Player;
-
 public class Fireball extends Rectangle{
 
 	private static final long serialVersionUID = 1L;
 
-	private int speed = 32;
-	private int color = 1;
+	private int speed = 8;
 	
 	
 	public Fireball(int x, int y) {						//get initial position and the space
@@ -21,23 +16,32 @@ public class Fireball extends Rectangle{
 	public void tick() {
 	
 		Player player = Game.player;
-
-		while(player.shot && canMove(x+player.xfireDir*speed,y+ player.yfireDir*speed)) {
-			System.out.println("la fireball veut bouger");
-			Game.fireball.x = x + player.xfireDir*speed;
-			Game.fireball.y = y + player.yfireDir*speed;
+		
+		while(Game.fireball.x > 0) {
+			while(canMove(x+player.xfireDir*speed,y+ player.yfireDir*speed)) {
+				System.out.println("Fireball Moved");
+				Game.fireball.x = x + player.xfireDir*speed;
+				Game.fireball.y = y + player.yfireDir*speed;
+			}
+			
+			player.xfireDir = -1 * player.xfireDir;
+			player.yfireDir = -1 * player.yfireDir;
+			System.out.println("Fireball Blocked");
+			
 			
 		}
-		player.xfireDir = -1 * player.xfireDir;
-		player.yfireDir = -1 * player.yfireDir;
-		System.out.println("ca passe par la");
-		
 	}
 	
 	public boolean canMove(int nextX, int nextY) {
 
 		Rectangle bounds = new Rectangle(nextX, nextY, width, height);
 		Level level = Game.level;
+		
+		if(Game.player.x == Game.fireball.x && Game.player.y == Game.fireball.y) {
+			Game.fireball.x = -32;
+			Game.fireball.y = -32;
+			return false;	
+		}
 		
 		for(int xx = 0; xx < level.bones.length; xx++) {
 			for(int yy = 0; yy < level.bones[0].length; yy++) {
@@ -79,31 +83,21 @@ public class Fireball extends Rectangle{
 				}
 			}
 		}
-		
+
 		return true;
 	}
 	
 	public void render(Graphics g) {
-		
-		if(color == 1) {
-			SpriteSheet sheet = Game.fireball_1;
+			
+		SpriteSheet sheet = Game.fireball_1;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);	
-			color++;
-		}else if(color == 2) {
-			SpriteSheet sheet = Game.fireball_2;
+/*			SpriteSheet sheet = Game.fireball_2;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);	
-			color++;
-		}else if(color == 3) {
 			SpriteSheet sheet = Game.fireball_3;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);	
-			color++;
-		}else if(color == 4) {
 			SpriteSheet sheet = Game.fireball_1;
-			g.drawImage(sheet.getSprite(0,0),x,y,null);	
-			color = 1;
-		}
+			g.drawImage(sheet.getSprite(0,0),x,y,null);	 */
+
 	}
-	
-	
 	
 }

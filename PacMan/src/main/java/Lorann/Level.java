@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import PacMan.Purse;
 
 public class Level{
 
@@ -111,5 +110,6 @@ public class Level{
 		for(int i = 0; i < crystal.size(); i++) {
 			crystal.get(i).render(g);
 		}
+		
 	}
 }

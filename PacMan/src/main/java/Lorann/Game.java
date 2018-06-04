@@ -7,10 +7,6 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
-import PacMan.Game;
-import PacMan.Level;
-import PacMan.Player;
-
 public class Game extends Canvas implements Runnable, KeyListener{
 
 	private static final long serialVersionUID = 1L;

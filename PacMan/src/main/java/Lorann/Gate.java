@@ -2,8 +2,6 @@ package Lorann;
 
 import java.awt.*;
 
-import PacMan.Game;
-import PacMan.Level;
 
 public class Gate extends Rectangle {
 

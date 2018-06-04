@@ -3,8 +3,6 @@ package Lorann;
 import java.awt.*;
 import java.util.Random;
 
-import PacMan.Game;
-import PacMan.Level;
 
 public class Enemy extends Rectangle{
 

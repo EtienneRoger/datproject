@@ -2,7 +2,6 @@ package Lorann;
 
 import java.awt.*;
 
-import PacMan.Game;
 
 public class Horizontal_Bone extends Rectangle{
 

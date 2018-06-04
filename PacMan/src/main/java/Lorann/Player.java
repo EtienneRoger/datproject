@@ -2,9 +2,6 @@ package Lorann;
 
 import java.awt.*;
 
-import PacMan.Game;
-import PacMan.Level;
-import PacMan.Player;
 
 public class Player extends Rectangle{
 
@@ -80,11 +77,6 @@ public class Player extends Rectangle{
 				Score = Score + 10;									//Add score for pick a purse
 				break;
 			}
-		}
-		
-		if(this.intersects(Game.fireball)) {
-			Game.fireball.x = -32;
-			Game.fireball.y = -32;
 		}
 		
 	}
