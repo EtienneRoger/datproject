@@ -1,4 +1,4 @@
-package PacMan;
+package Lorann;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -6,6 +6,10 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+
+import PacMan.Game;
+import PacMan.Level;
+import PacMan.Player;
 
 public class Game extends Canvas implements Runnable, KeyListener{
 

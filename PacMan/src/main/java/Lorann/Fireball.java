@@ -1,6 +1,10 @@
-package PacMan;
+package Lorann;
 
 import java.awt.*;
+
+import PacMan.Game;
+import PacMan.Level;
+import PacMan.Player;
 
 public class Fireball extends Rectangle{
 

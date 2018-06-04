@@ -1,4 +1,4 @@
-package PacMan;
+package Lorann;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+
+import PacMan.Purse;
 
 public class Level{
 
