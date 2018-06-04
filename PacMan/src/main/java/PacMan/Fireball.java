@@ -76,16 +76,6 @@ public class Fireball extends Rectangle{
 			}
 		}
 		
-		for(int xx = 0; xx < level.enemies.length; xx++) {
-			for(int yy = 0; yy < level.enemies[0].length; yy++) {
-				if(level.enemies[xx][yy] != null) {
-					if(bounds.intersects(level.enemies[xx][yy])) {
-						return false;
-					}
-				}
-			}
-		}
-		
 		return true;
 	}
 	
