@@ -16,7 +16,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static final int X_SIZE = 20, Y_SIZE = 13;										// Number of Sprite per Axe
 	public static final int SPRITE_SIZE = 32;												// Size of a Sprite
 	public static final int WIDTH = X_SIZE * SPRITE_SIZE, HEIGHT = Y_SIZE * SPRITE_SIZE;	//Size of the Window
-	public static final String TITLE = "Pac-Man";
+	public static final String TITLE = "Lorann";
 	
 	private Thread thread;
 	
