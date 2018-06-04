@@ -87,7 +87,7 @@ public class Enemy extends Rectangle{
 	
 	public void render(Graphics g) {
 		
-		SpriteSheet sheet = Game.monster_1;
+		SpriteSheet sheet = Game.monster_3;
 		g.drawImage(sheet.getSprite(0,0),x,y,null);
 		
 /*		if(Level.randomEnemies == 0) {

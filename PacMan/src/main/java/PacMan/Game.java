@@ -16,12 +16,13 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static final int X_SIZE = 20, Y_SIZE = 13;										// Number of Sprite per Axe
 	public static final int SPRITE_SIZE = 32;												// Size of a Sprite
 	public static final int WIDTH = X_SIZE * SPRITE_SIZE, HEIGHT = Y_SIZE * SPRITE_SIZE;	//Size of the Window
-	public static final String TITLE = "Pac-Man";
+	public static final String TITLE = "Lorann";
 	
 	private Thread thread;
 	
 	public static Player player;				// the player
 	public static Level level;					// the level
+	public static Fireball fireball;			// the fireball
 	
 	public static SpriteSheet boneSprite;		// the different type of sprite
 	public static SpriteSheet vertiBoneSprite;	
@@ -59,7 +60,10 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		addKeyListener(this);
 		player = new Player(32,32);											//add a player with his position
 		level = new Level("/level/map.png");								//Show the root of each sprite used
+		fireball = new Fireball(-32,-32);				
 		boneSprite = new SpriteSheet("/sprite/bone.png");
+		
+		
 		vertiBoneSprite = new SpriteSheet("/sprite/vertical_bone.png");
 		horiBoneSprite = new SpriteSheet("/sprite/horizontal_bone.png");
 		purseSprite = new SpriteSheet("/sprite/purse.png");
@@ -112,6 +116,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private void tick() {
 		player.tick();
 		level.tick();
+		fireball.tick();
 	}			
 		
 	private void render() {
@@ -124,8 +129,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.black);							
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		player.render(g, count);
+		player.render(g);
 		level.render(g);
+		fireball.render(g);
 		g.dispose();
 		bs.show();
 		
@@ -154,11 +160,11 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			}
 			
 			if(System.currentTimeMillis() - timer >= 1000) {
-			//	System.out.println(fps);										//Show the actual fps
+				System.out.println(fps);										//Show the actual fps
 				fps = 0;
 				timer+=1000;
 			}
-			//System.out.println("Your Score: " + Player.Score + " points");	//Show your actual score
+		//	System.out.println("Your Score: " + Player.Score + " points");	//Show your actual score
 
 		}
 		stop();
@@ -194,6 +200,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_LEFT) player.left = false;
 		if(e.getKeyCode() == KeyEvent.VK_UP) player.up = false;
 		if(e.getKeyCode() == KeyEvent.VK_DOWN) player.down = false;
+	
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) player.shot = false;
 		
 	}

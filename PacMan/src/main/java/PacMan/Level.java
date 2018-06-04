@@ -20,12 +20,10 @@ public class Level{
 	
 	public List<Purse> purses;
 	public List<Crystal> crystal;
-	public static List<Fireball> fireball;
 	
 	public Level(String path) {
 		purses = new ArrayList<Purse>();
 		crystal = new ArrayList<Crystal>();
-		fireball = new ArrayList<Fireball>(1);
 		
 		try {
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
@@ -110,10 +108,6 @@ public class Level{
 		
 		for(int i = 0; i < crystal.size(); i++) {
 			crystal.get(i).render(g);
-		}
-		
-		for(int i = 0; i < fireball.size(); i++) {
-			fireball.get(i).render(g);
 		}
 	}
 }

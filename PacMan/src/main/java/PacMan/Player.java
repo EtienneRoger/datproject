@@ -23,9 +23,9 @@ public class Player extends Rectangle{
 	}
 		
 	public void tick() {
-		
-		Level level = Game.level;
 
+		Level level = Game.level;
+		
 		if(right && canMove(x+speed,y))x+=speed;										//set the new position of the player 
 		if(left && canMove(x-speed,y))x-=speed;
 		if(up && canMove(x,y-speed))y-=speed;
@@ -35,29 +35,32 @@ public class Player extends Rectangle{
 		if(right && down && canMove(x+speed,y+speed)) {x+=speed; y+=speed;}
 		if(right && up && canMove(x+speed,y-speed)) {x+=speed; y-=speed;}
 		
-		
-		if(level.fireball.size() == 0){								//Set the fireball position with the right direction
-			if(shot && right) {
-				level.fireball.add(new Fireball(x-speed,y));
+		if(shot && Game.fireball.x < 0 ) {
+			if(right) {
+				Game.fireball.x = x-32;
+				Game.fireball.y = y;
 				xfireDir = -1;
 				yfireDir = 0;
 			}
-			if(shot && left) {
-				level.fireball.add(new Fireball(x+speed,y));
+			if(left) {
+				Game.fireball.x = x+32;
+				Game.fireball.y = y;
 				xfireDir = 1;
 				yfireDir = 0;
 			}
-			if(shot && up) {
-				level.fireball.add(new Fireball(x,y+speed));
+			if(up) {
+				Game.fireball.x = x;
+				Game.fireball.y = y+32;
 				xfireDir = 0;
 				yfireDir = 1;
 			}
-			if(shot && down) {
-				level.fireball.add(new Fireball(x,y-speed));
+			if(down) {
+				Game.fireball.x = x;
+				Game.fireball.y = y-32;
 				xfireDir = 0;
 				yfireDir = -1;
 			}
-		} // else {System.out.println("la fireball est lance");}
+		}
 		
 		
 		for(int i = 0; i < level.crystal.size(); i++) {
@@ -75,11 +78,9 @@ public class Player extends Rectangle{
 			}
 		}
 		
-		for(int i = 0; i < level.fireball.size(); i++) {
-			if(this.intersects(level.fireball.get(i))){
-				level.fireball.remove(i);
-				break;
-			}
+		if(this.intersects(Game.fireball)) {
+			Game.fireball.x = -32;
+			Game.fireball.y = -32;
 		}
 		
 	}
@@ -152,8 +153,7 @@ public class Player extends Rectangle{
 		return true;																	//for all other block, the player can move on
 	}
 	
-	public void render (Graphics g, int c) {					// set Player's graphics POSITION and SIZE with the orientation "contrainte"
-		
+	public void render (Graphics g) {					// set Player's graphics POSITION and SIZE with the orientation "contrainte"
 		
 		
 		if(right == true && up == true) {
@@ -181,40 +181,22 @@ public class Player extends Rectangle{
 			SpriteSheet sheet = Game.playerB;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
 		}else {
-
-			if(c == 0) {
 				SpriteSheet sheet = Game.playerL;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				c++;
-			}else if(c == 1) {
-				SpriteSheet sheet = Game.playerLU;
+		/*		SpriteSheet sheet = Game.playerLU;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				c++;
-			}else if(c == 2) {
 				SpriteSheet sheet = Game.playerU;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				c++;
-			}else if(c == 3) {
 				SpriteSheet sheet = Game.playerRU;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				c++;
-			}else if(c == 4) {
 				SpriteSheet sheet = Game.playerR;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				c++;
-			}else if(c == 4) {
 				SpriteSheet sheet = Game.playerRB;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				c++;
-			}else if(c == 6) {
 				SpriteSheet sheet = Game.playerB;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				c++;
-			}else if(c == 7) {
 				SpriteSheet sheet = Game.playerLB;
-				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				c = 0;
-			}
+				g.drawImage(sheet.getSprite(0,0),x,y,null);  */
 		}
 			
 	}

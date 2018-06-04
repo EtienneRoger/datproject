@@ -7,6 +7,7 @@ public class Fireball extends Rectangle{
 	private static final long serialVersionUID = 1L;
 
 	private int speed = 32;
+	private int color = 1;
 	
 	
 	public Fireball(int x, int y) {						//get initial position and the space
@@ -14,21 +15,18 @@ public class Fireball extends Rectangle{
 	}
 	
 	public void tick() {
-/*		
+	
 		Player player = Game.player;
-		Level level = Game.level;
 
-		while(canMove(x,y) == true) {
-			System.out.println("la fierball veut bouger");
-			x = x + player.xfireDir;
-			y = y + player.yfireDir;
-			level.fireball.remove(0);
-			level.crystal.add(new Crystal(x*32,y*32));
+		while(player.shot && canMove(x+player.xfireDir*speed,y+ player.yfireDir*speed)) {
+			System.out.println("la fireball veut bouger");
+			Game.fireball.x = x + player.xfireDir*speed;
+			Game.fireball.y = y + player.yfireDir*speed;
+			
 		}
 		player.xfireDir = -1 * player.xfireDir;
 		player.yfireDir = -1 * player.yfireDir;
 		System.out.println("ca passe par la");
-		*/
 		
 	}
 	
@@ -92,9 +90,24 @@ public class Fireball extends Rectangle{
 	}
 	
 	public void render(Graphics g) {
-		SpriteSheet sheet = Game.fireball_1;
-		g.drawImage(sheet.getSprite(0,0),x,y,null);	
 		
+		if(color == 1) {
+			SpriteSheet sheet = Game.fireball_1;
+			g.drawImage(sheet.getSprite(0,0),x,y,null);	
+			color++;
+		}else if(color == 2) {
+			SpriteSheet sheet = Game.fireball_2;
+			g.drawImage(sheet.getSprite(0,0),x,y,null);	
+			color++;
+		}else if(color == 3) {
+			SpriteSheet sheet = Game.fireball_3;
+			g.drawImage(sheet.getSprite(0,0),x,y,null);	
+			color++;
+		}else if(color == 4) {
+			SpriteSheet sheet = Game.fireball_1;
+			g.drawImage(sheet.getSprite(0,0),x,y,null);	
+			color = 1;
+		}
 	}
 	
 	
