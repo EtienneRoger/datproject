@@ -122,7 +122,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		fireball.tick();
 		
 	}			
-		
+	
 	private void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if(bs == null) {
