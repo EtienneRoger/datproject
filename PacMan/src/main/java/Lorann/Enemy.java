@@ -28,7 +28,7 @@ public class Enemy extends Rectangle{
 		if(Game.player.x == x && Game.player.y == y) {
 			Player.Score = 0;												//Reset Score
 			Game.player = new Player(32,32);								//Initialize a new player
-			Game.level = new Level("/level/map.png");						//Initialize the same map
+			Game.level = new Level(Game.levelChose);						//Initialize the same map
 			Game.fireball = new Fireball(-32,-32);
 		}	
 
@@ -90,7 +90,7 @@ public class Enemy extends Rectangle{
 		if(Game.player.x == x && Game.player.y == y) {
 			Player.Score = 0;												//Reset Score
 			Game.player = new Player(32,32);								//Initialize a new player
-			Game.level = new Level("/level/map.png");						//Initialize the same map
+			Game.level = new Level(Game.levelChose);						//Initialize the same map
 			Game.fireball = new Fireball(-32,-32);
 		}	
 
@@ -103,7 +103,7 @@ public class Enemy extends Rectangle{
 		
 	
 		
-		for(int xx = 0; xx < level.bones.length; xx++) {
+		for(int xx = 0; xx < level.bones.length; xx++) {				//collision with a bone
 			for(int yy = 0; yy < level.bones[0].length; yy++) {
 				if(level.bones[xx][yy] != null) {
 					if(bounds.intersects(level.bones[xx][yy])) {
@@ -112,8 +112,8 @@ public class Enemy extends Rectangle{
 				}
 			}
 		}
-		
-		for(int xx = 0; xx < level.vertiBones.length; xx++) {
+			
+		for(int xx = 0; xx < level.vertiBones.length; xx++) {			//collision with a verti_bone
 			for(int yy = 0; yy < level.vertiBones[0].length; yy++) {
 				if(level.vertiBones[xx][yy] != null) {
 					if(bounds.intersects(level.vertiBones[xx][yy])) {
@@ -123,7 +123,7 @@ public class Enemy extends Rectangle{
 			}
 		}
 		
-		for(int xx = 0; xx < level.horiBones.length; xx++) {
+		for(int xx = 0; xx < level.horiBones.length; xx++) {			//collision with an hori_bone
 			for(int yy = 0; yy < level.horiBones[0].length; yy++) {
 				if(level.horiBones[xx][yy] != null) {
 					if(bounds.intersects(level.horiBones[xx][yy])) {
@@ -133,9 +133,9 @@ public class Enemy extends Rectangle{
 			}
 		}
 		
-		for(int xx = 0; xx < level.gate.length; xx++) {
+		for(int xx = 0; xx < level.gate.length; xx++) {					//collision with the gate
 			for(int yy = 0; yy < level.gate[0].length; yy++) {
-				if(level.gate[xx][yy] != null && level.crystal.size() != 0) {
+				if(level.gate[xx][yy] != null) {
 					if(bounds.intersects(level.gate[xx][yy])) {
 						return false;
 
@@ -144,30 +144,19 @@ public class Enemy extends Rectangle{
 			}
 		}
 		
-		for(int xx = 0; xx < level.gate.length; xx++) {
-			for(int yy = 0; yy < level.gate[0].length; yy++) {
-				if(level.gate[xx][yy] != null && level.crystal.size() != 0) {
-					if(bounds.intersects(level.gate[xx][yy])) {
-						return false;
-
-					}
-				}
-			}
-		}
-		
-		for(int i = 0; i < level.crystal.size(); i++) {
+		for(int i = 0; i < level.crystal.size(); i++) {					//collision with a crystal
 			if(bounds.intersects(level.crystal.get(i))){
 				return false;
 			}
 		}
 		
-		for(int i = 0; i < level.purses.size(); i++) {
+		for(int i = 0; i < level.purses.size(); i++) {					//collision with a purse
 			if(bounds.intersects(level.purses.get(i))){
 				return false;
 			}
 		}
 		
-		for(int i = 0; i < level.enemies.size(); i++) {
+		for(int i = 0; i < level.enemies.size(); i++) {					//collision with another monster
 			if(bounds.intersects(level.enemies.get(i))){
 				return false;
 			}

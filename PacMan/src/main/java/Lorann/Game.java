@@ -50,6 +50,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static SpriteSheet fireball_4;
 	public static SpriteSheet fireball_5;
 	
+	public static int levelChose = 1;
+
 	public int count = 0;
 	
 	public Game() {
@@ -61,7 +63,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 		addKeyListener(this);
 		player = new Player(32,32);											//add a player with his position
-		level = new Level("/level/map.png");								//Show the root of each sprite used
+		level = new Level(levelChose);										//Choose the map to load
 		fireball = new Fireball(-32,-32);									//add the fireball outside the windows for put it in the right POSITION when we press enter		
 		
 		boneSprite = new SpriteSheet("/sprite/bone.png");
@@ -144,7 +146,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		int fps = 0;
 		double timer = System.currentTimeMillis();	
 		long lastTime = System.nanoTime();
-		double targetTick = 9.0;					
+		double targetTick = 8.0;					
 		double delta = 0;
 		double ns = 1000000000 / targetTick;
 		
@@ -171,7 +173,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			if(restart) {												//Restart the game if the Back_Space button is pressed
 				Player.Score = 0;										//Reset Score
 				player = new Player(32,32);								//Initialize a new player
-				level = new Level("/level/map.png");					//Initialize the same map
+				level = new Level(levelChose);					//Initialize the same map
 				fireball = new Fireball(-32,-32);
 			}
 			
