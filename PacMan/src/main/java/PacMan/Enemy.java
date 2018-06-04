@@ -6,6 +6,16 @@ import java.util.Random;
 public class Enemy extends Rectangle{
 
 	private static final long serialVersionUID = 1L;
+	
+	private int random = 0,smart = 1;
+	
+	private int state = random;
+	
+	private int right = 1,left = 2,up = 3,down = 4;
+	
+	private int dir = 1;
+	
+	public Random randomGen;
 
 	public Enemy(int x, int y){					//get initial position and the space
 		setBounds(x,y,32,32);
