@@ -12,12 +12,12 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private static final long serialVersionUID = 1L;
 
 	private boolean isRunning = false;			//Variable to know if the game is running
-	private boolean restart = false;
+	private boolean restart = false;			//Variable for restart the level when we want
 			
-	public static final int X_SIZE = 20, Y_SIZE = 13;										// Number of Sprite per Axe
+	public static final int X_SIZE = 20, Y_SIZE = 12;										// Number of Sprite per Axe
 	public static final int SPRITE_SIZE = 32;												// Size of a Sprite
-	public static final int WIDTH = X_SIZE * SPRITE_SIZE, HEIGHT = Y_SIZE * SPRITE_SIZE;	//Size of the Window
-	public static final String TITLE = "Lorann";
+	public static final int WIDTH = X_SIZE * SPRITE_SIZE, HEIGHT = Y_SIZE * SPRITE_SIZE;	// Size of the Window
+	public static final String TITLE = "Lorann";											// Title of the window
 	
 	private Thread thread;
 	
@@ -55,7 +55,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public int count = 0;
 	
 	public Game() {
-		Dimension dimension = new Dimension(Game.WIDTH, Game.HEIGHT);		//Dimention of the window
+		Dimension dimension = new Dimension(Game.WIDTH, Game.HEIGHT);		//Dimension of the window
 		setPreferredSize(dimension);
 		setMaximumSize(dimension);
 		setMinimumSize(dimension);
@@ -66,7 +66,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		level = new Level(levelChose);										//Choose the map to load
 		fireball = new Fireball(-32,-32);									//add the fireball outside the windows for put it in the right POSITION when we press enter		
 		
-		boneSprite = new SpriteSheet("/sprite/bone.png");
+		boneSprite = new SpriteSheet("/sprite/bone.png");					//Initialize all sprite
 		vertiBoneSprite = new SpriteSheet("/sprite/vertical_bone.png");
 		horiBoneSprite = new SpriteSheet("/sprite/horizontal_bone.png");
 		purseSprite = new SpriteSheet("/sprite/purse.png");
@@ -131,8 +131,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.black);							
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		g.setColor(Color.black);						//Set the color of the background	
+		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);		//Set the size of the background
 		player.render(g);
 		level.render(g);
 		fireball.render(g);

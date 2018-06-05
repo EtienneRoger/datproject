@@ -15,7 +15,7 @@ public class Gate extends Rectangle {
 		
 		Level level = Game.level;		
 		
-		if(level.crystal.size() != 0) {
+		if(level.crystal.isEmpty()) {					//Look if the list of crystal is empty for put the right sprite
 			SpriteSheet sheet = Game.gateClosed;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
 		}else {

@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Level{
 
-	public int width = 20, height = 13;
+	public int width = 20, height = 12;			//Declare the window's size
 	
-	public Bone[][] bones;
+	public Bone[][] bones;						//Declare table for storage all information of the map
 	public Vertical_Bone[][] vertiBones;
 	public Horizontal_Bone[][] horiBones;
 	public Gate[][] gate;
@@ -20,20 +20,19 @@ public class Level{
 	
 	public Level(int level) {
 		
-		
+		bones = new Bone[width][height];					//initialize all the object of the map
+		vertiBones = new Vertical_Bone[width][height];
+		horiBones = new Horizontal_Bone[width][height];
+		gate = new Gate[width][height];
 		
 		purses = new ArrayList<Purse>();
 		crystal = new ArrayList<Crystal>();
 		enemies = new ArrayList<Enemy>();
-		
-		bones = new Bone[width][height];
-		vertiBones = new Vertical_Bone[width][height];
-		horiBones = new Horizontal_Bone[width][height];
-		gate = new Gate[width][height];
+
 
 		for(int xx = 0; xx < width; xx++) {
 			for(int yy = 0; yy < height; yy++) {
-				String val = sqlConnection.saveInBase(xx, yy, level);
+				String val = sqlConnection.saveInBase(xx, yy, level);	//check all position of the windows in the database for put the right object in the right position
 				
 				if(val == "bone") {
 					bones[xx][yy] = new Bone(xx*32,yy*32);
@@ -49,22 +48,20 @@ public class Level{
 					gate[xx][yy] = new Gate(xx*32,yy*32);
 				}else if (val == "monster") {
 					enemies.add(new Enemy(xx*32,yy*32));
-
-				}
-				
+				}	
 			}
 		}
 		
 	}
 
-	public void tick() {
+	public void tick() {												//update the monsters movements
 		for(int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).tick();
 		}
 		
 	}
 	
-	public void render(Graphics g) {
+	public void render(Graphics g) {									//set the graphics of each blocks
 		for(int x = 0; x < width; x++) {
 			for(int y = 0; y < height; y++) {
 				if(bones[x][y] != null) bones[x][y].render(g);

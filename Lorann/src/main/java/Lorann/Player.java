@@ -40,7 +40,7 @@ public class Player extends Rectangle{
 		
 		for(int i = 0; i < level.crystal.size(); i++) {
 			if(this.intersects(level.crystal.get(i))){
-				level.crystal.remove(i);							//remove block of the list if the player is in the same position
+				level.crystal.remove(i);							//remove crystal of the list if the player is in the same position
 				break;
 			}
 		}
@@ -52,7 +52,7 @@ public class Player extends Rectangle{
 				break;
 			}
 		}
-		count++;
+		count++;													//add 1 at the counter
 		
 	}
 	
@@ -74,8 +74,8 @@ public class Player extends Rectangle{
 		for(int xx = 0; xx < level.vertiBones.length; xx++) {				
 			for(int yy = 0; yy < level.vertiBones[0].length; yy++) {
 				if(level.vertiBones[xx][yy] != null) {
-					if(bounds.intersects(level.vertiBones[xx][yy])) {
-						return false;
+					if(bounds.intersects(level.vertiBones[xx][yy])) {					// if it is a vertical bone 
+						return false;													// he can't
 					}
 				}
 			}
@@ -83,24 +83,24 @@ public class Player extends Rectangle{
 		
 		for(int xx = 0; xx < level.horiBones.length; xx++) {							
 			for(int yy = 0; yy < level.horiBones[0].length; yy++) {
-				if(level.horiBones[xx][yy] != null) {
-					if(bounds.intersects(level.horiBones[xx][yy])) {
+				if(level.horiBones[xx][yy] != null) {									// if it is an horizontal bone
+					if(bounds.intersects(level.horiBones[xx][yy])) {					// he can t'
 						return false;
 					}
 				}
 			}
 		}
 
-		for(int xx = 0; xx < level.gate.length; xx++) {
+		for(int xx = 0; xx < level.gate.length; xx++) {									//if the gate is closed he can t and die on it
 			for(int yy = 0; yy < level.gate[0].length; yy++) {
-				if(level.gate[xx][yy] != null && level.crystal.isEmpty()) {				//isEmpty returns true if the list is empty
+				if(level.gate[xx][yy] != null && !level.crystal.isEmpty()) {			//isEmpty returns true if the list is empty
 					if(bounds.intersects(level.gate[xx][yy])) {		
 						Score = 0;														//Reset Score
 						Game.player = new Player(32,32);								//Initialize a new player
 						Game.level = new Level(Game.levelChose);						//Initialize the same map
 						Game.fireball = new Fireball(-32,-32);
 					}
-				}else if(level.gate[xx][yy] != null && level.crystal.size() == 0) {
+				}else if(level.gate[xx][yy] != null && level.crystal.isEmpty()) {
 					if(bounds.intersects(level.gate[xx][yy])) {
 						Score = Score + 50;												//Add 50pts if you finish the level
 						if(Game.levelChose < 5) {
@@ -129,10 +129,10 @@ public class Player extends Rectangle{
 			}
 		}
 		
-		return true;																	//for all other block, the player can move on
+		return true;															//for all other block, the player can move on
 	}
 	
-	public void render(Graphics g) {					// set Player's graphics POSITION and SIZE with the orientation "contrainte"
+	public void render(Graphics g) {					// set Player's graphics POSITION and SIZE with the orientation constraint
 		
 		
 		if(right && up) {
@@ -159,8 +159,8 @@ public class Player extends Rectangle{
 		}else if(down) {
 			SpriteSheet sheet = Game.playerB;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);
-		}else {
-			if(count == 0) {
+		}else {	
+			if(count == 0) {											//do a loop if not moving
 				SpriteSheet sheet = Game.playerRU;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
 			}else if(count == 1) {
@@ -184,7 +184,7 @@ public class Player extends Rectangle{
 			}else if(count >= 7) {
 				SpriteSheet sheet = Game.playerU;
 				g.drawImage(sheet.getSprite(0,0),x,y,null);
-				count = 0;
+				count = 0;												//reset count for another loop
 			}
 		}	
 	}

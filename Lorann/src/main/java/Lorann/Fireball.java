@@ -9,10 +9,10 @@ public class Fireball extends Rectangle{
 
 	public int xfireDir, yfireDir;
 	
-	private int speed = 32;
-	public int color;
+	private int speed = 32;								//declaration the number of pixel who move the fireball at each frame
+	public int color;									//declaration of the fireball's color variable
 	
-	public Random random;
+	public Random random;								//declaration a random variable
 	
 	
 	public Fireball(int x, int y) {						//get initial position and the space
@@ -35,17 +35,17 @@ public class Fireball extends Rectangle{
 		}
 		
 		if(Game.fireball.x > 0) {
-			if(canMove(x+xfireDir*speed,y+yfireDir*speed)) {
+			if(canMove(x+xfireDir*speed,y+yfireDir*speed)) {		//look for the next position of the fireball and set the right position
 				Game.fireball.x = x + xfireDir*speed;
 				Game.fireball.y = y + yfireDir*speed;	
 			}else{
-			xfireDir = -1 * xfireDir;
+			xfireDir = -1 * xfireDir;								//reverse the direction when the fireball hit a wall
 			yfireDir = -1 * yfireDir;
 			}	
 		}
 		
-		if(player.shot && Game.fireball.x < 0 ) {
-			if(player.right) {
+		if(player.shot && Game.fireball.x < 0 ) {					//look if the player shot a fireball and if a fireball is already fired
+			if(player.right) {										//if it is ok set the right position for the fireball
 				x = player.x-32;
 				y = player.y;
 				xfireDir = -1;
@@ -98,7 +98,7 @@ public class Fireball extends Rectangle{
 		}
 		
 		
-		for(int xx = 0; xx < level.bones.length; xx++) {										//collision with a bone
+		for(int xx = 0; xx < level.bones.length; xx++) {							//collision with a bone
 			for(int yy = 0; yy < level.bones[0].length; yy++) {
 				if(level.bones[xx][yy] != null) {
 					if(bounds.intersects(level.bones[xx][yy])) {
@@ -108,7 +108,7 @@ public class Fireball extends Rectangle{
 			}
 		}
 		
-		for(int xx = 0; xx < level.vertiBones.length; xx++) {									//collision with a vert_bone
+		for(int xx = 0; xx < level.vertiBones.length; xx++) {						//collision with a vert_bone
 			for(int yy = 0; yy < level.vertiBones[0].length; yy++) {
 				if(level.vertiBones[xx][yy] != null) {
 					if(bounds.intersects(level.vertiBones[xx][yy])) {
@@ -118,7 +118,7 @@ public class Fireball extends Rectangle{
 			}
 		}
 		
-		for(int xx = 0; xx < level.horiBones.length; xx++) {									//collision with an hori_bone
+		for(int xx = 0; xx < level.horiBones.length; xx++) {						//collision with an hori_bone
 			for(int yy = 0; yy < level.horiBones[0].length; yy++) {
 				if(level.horiBones[xx][yy] != null) {
 					if(bounds.intersects(level.horiBones[xx][yy])) {
@@ -128,7 +128,7 @@ public class Fireball extends Rectangle{
 			}
 		}
 		
-		for(int xx = 0; xx < level.gate.length; xx++) {											//collision with the gate
+		for(int xx = 0; xx < level.gate.length; xx++) {								//collision with the gate
 			for(int yy = 0; yy < level.gate[0].length; yy++) {
 				if(level.gate[xx][yy] != null) {
 					if(bounds.intersects(level.gate[xx][yy])) {
@@ -139,13 +139,13 @@ public class Fireball extends Rectangle{
 			}
 		}
 
-		for(int i = 0; i < level.crystal.size(); i++) {											//collision with a crystal
+		for(int i = 0; i < level.crystal.size(); i++) {								//collision with a crystal
 			if(bounds.intersects(level.crystal.get(i))){
 				return false;
 			}
 		}
 		
-		for(int i = 0; i < level.purses.size(); i++) {											//collision with a purse
+		for(int i = 0; i < level.purses.size(); i++) {								//collision with a purse
 			if(bounds.intersects(level.purses.get(i))){
 				return false;
 			}
@@ -156,10 +156,10 @@ public class Fireball extends Rectangle{
 	
 	public void render(Graphics g) {
 		
-		random = new Random();
-		color = random.nextInt(5);
+		random = new Random();									//initialize a random 
+		color = random.nextInt(5);								//set to color a number between 0 - 5
 		
-		if(color == 0){
+		if(color == 0){											//set the color according to the random number
 			SpriteSheet sheet = Game.fireball_1;
 			g.drawImage(sheet.getSprite(0,0),x,y,null);	
 		}else if(color == 1) {

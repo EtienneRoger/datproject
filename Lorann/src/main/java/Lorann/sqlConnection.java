@@ -10,7 +10,7 @@ public class sqlConnection {
 	}
 
 	public static String saveInBase(int x, int y, int z) {
-		
+		//declare and initialize the url's DB and the logs
 		String url = "jdbc:cj:mysql://localhost/phpmyadmin/db_structure.php?db=lorann?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String user = "root";
 		String passwd = "";
@@ -22,17 +22,17 @@ public class sqlConnection {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			cn = DriverManager.getConnection(url, user, passwd);
+			cn = DriverManager.getConnection(url, user, passwd);			//check for the connection
 			
-			st = cn.createStatement();
+			st = cn.createStatement();										
+				
+			String sql = "CALL call_map" + z + "(" + x + ", " + y + ")";	//do the query of calling a specific procedure 
 			
-			String sql = "CALL call_map" + z + "(" + x + ", " + y + ")";
+			ResultSet result = st.executeQuery(sql);						//look for the result
 			
-			ResultSet result = st.executeQuery(sql);
-			
-			spriteType = result.getString(1);
-			
-			return spriteType;
+			spriteType = result.getString(1);								//add the result of the first column in a String variable
+				
+			return spriteType;												//return the String
 		}catch(SQLException e){
 			e.printStackTrace();
 			
@@ -40,7 +40,7 @@ public class sqlConnection {
 			e.printStackTrace();
 		}finally {
 			try {
-				cn.close();
+				cn.close();													//close the connection and the statement if all go right
 				st.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
