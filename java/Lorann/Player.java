@@ -26,10 +26,10 @@ public class Player extends Rectangle{
 
 		Level level = Game.level;
 		
-		if(right && canMove(x+speed,y))x+=speed;										//set the new position of the player 
-		if(left && canMove(x-speed,y))x-=speed;
-		if(up && canMove(x,y-speed))y-=speed;
-		if(down && canMove(x,y+speed))y+=speed;
+		if(right && !up && !down && canMove(x+speed,y))x+=speed;										//set the new position of the player 
+		if(left && !up && !down && canMove(x-speed,y))x-=speed;
+		if(up && !left && !right && canMove(x,y-speed))y-=speed;
+		if(down && !left  && !right && canMove(x,y+speed))y+=speed;
 		if(left && down && canMove(x-speed,y+speed)) {x-=speed; y+=speed;}
 		if(left && up && canMove(x-speed,y-speed)) {x-=speed; y-=speed;}
 		if(right && down && canMove(x+speed,y+speed)) {x+=speed; y+=speed;}

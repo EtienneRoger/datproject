@@ -1,6 +1,7 @@
 package Lorann;
 
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,27 +30,33 @@ public class Level{
 		crystal = new ArrayList<Crystal>();
 		enemies = new ArrayList<Enemy>();
 
-
-		for(int xx = 0; xx < width; xx++) {
-			for(int yy = 0; yy < height; yy++) {
-				String val = sqlConnector.doProcedure(xx, yy, level);	//check all position of the windows in the database for put the right object in the right position
-				
-				if(val == "bone") {
-					bones[xx][yy] = new Bone(xx*32,yy*32);
-				}else if(val == "vertical_bone") {
-					vertiBones[xx][yy] = new Vertical_Bone(xx*32,yy*32);
-				}else if(val == "horizontal_bone") {
-					horiBones[xx][yy] = new Horizontal_Bone(xx*32,yy*32);
-				}else if (val == "purse") {
-					purses.add(new Purse(xx*32,yy*32));
-				}else if (val == "crystal_ball") {
-					crystal.add(new Crystal(xx*32,yy*32));
-				}else if (val == "gate_closed") {
-					gate[xx][yy] = new Gate(xx*32,yy*32);
-				}else if (val == "monster") {
-					enemies.add(new Enemy(xx*32,yy*32));
-				}	
+		try
+		{
+			for(int xx = 0; xx < width; xx++) {
+				for(int yy = 0; yy < height; yy++) {
+					String val = sqlConnector.doProcedure(xx, yy, level);	//check all position of the windows in the database for put the right object in the right position
+					
+					if(val == "bone") {
+						bones[xx][yy] = new Bone(xx*32,yy*32);
+					}else if(val == "vertical_bone") {
+						vertiBones[xx][yy] = new Vertical_Bone(xx*32,yy*32);
+					}else if(val == "horizontal_bone") {
+						horiBones[xx][yy] = new Horizontal_Bone(xx*32,yy*32);
+					}else if (val == "purse") {
+						purses.add(new Purse(xx*32,yy*32));
+					}else if (val == "crystal_ball") {
+						crystal.add(new Crystal(xx*32,yy*32));
+					}else if (val == "gate_closed") {
+						gate[xx][yy] = new Gate(xx*32,yy*32);
+					}else if (val == "monster") {
+						enemies.add(new Enemy(xx*32,yy*32));
+					}	
+				}
 			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
 		}
 		
 	}

@@ -1,5 +1,6 @@
 package Lorann;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,34 +22,35 @@ public class sqlConnector {
 		
 	}
 	
-	public static String doProcedure(int x, int y, int z) {
+	public static String doProcedure(int x, int y, int z) throws SQLException {
+
+		System.out.println(x +" "+ y +" "+ z);
 		
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			cn = DriverManager.getConnection(url, user, password);
-			st = cn.createStatement();
-			
-			String procedure = "CALL call_map" + z + "(" + x + "," + y +")";
-			
-			ResultSet result = st.executeQuery(procedure);
-			
-			spriteType = result.getString(1);
-			
-			return spriteType;
-		}catch(SQLException e) {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				cn.close();
-				st.close();
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+		System.out.println("fdp");
+		cn = DriverManager.getConnection(url,user,password); 
+		st = cn.createStatement(); 
+
+		String sql = "{CALL call_map"+ z +"(?,?)}"; 
+		CallableStatement call = cn.prepareCall(sql); 
+		call.setInt(1, x); 
+		call.setInt(2, y);
 		
-		return null;
+		if(call.execute()){ 
+		    ResultSet result = call.getResultSet();
+		    result.next();
+
+		    spriteType = result.getString(1);
+			System.out.println("le sprite actuel est " +spriteType); 
+		    result.close(); 
+		    return spriteType;
+
+		}
+		return spriteType;
+		
 	}
-	
 }

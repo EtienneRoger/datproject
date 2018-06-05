@@ -164,7 +164,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			}
 			
 			if(System.currentTimeMillis() - timer >= 1000) {
-				System.out.println("FPS : " + fps);										//Show the actual fps
+//				System.out.println("FPS : " + fps);										//Show the actual fps
 				fps = 0;
 				timer+=1000;
 			}
