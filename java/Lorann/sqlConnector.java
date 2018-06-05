@@ -23,15 +23,12 @@ public class sqlConnector {
 	}
 	
 	public static String doProcedure(int x, int y, int z) throws SQLException {
-
-		System.out.println(x +" "+ y +" "+ z);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} 
-		System.out.println("fdp");
 		cn = DriverManager.getConnection(url,user,password); 
 		st = cn.createStatement(); 
 
@@ -45,8 +42,9 @@ public class sqlConnector {
 		    result.next();
 
 		    spriteType = result.getString(1);
-			System.out.println("le sprite actuel est " +spriteType); 
 		    result.close(); 
+		    cn.close();
+		    st.close();
 		    return spriteType;
 
 		}

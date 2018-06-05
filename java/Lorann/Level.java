@@ -29,28 +29,28 @@ public class Level{
 		purses = new ArrayList<Purse>();
 		crystal = new ArrayList<Crystal>();
 		enemies = new ArrayList<Enemy>();
-
+		
 		try
 		{
 			for(int xx = 0; xx < width; xx++) {
 				for(int yy = 0; yy < height; yy++) {
 					String val = sqlConnector.doProcedure(xx, yy, level);	//check all position of the windows in the database for put the right object in the right position
-					
-					if(val == "bone") {
+
+					if(val.equals("bone")) {
 						bones[xx][yy] = new Bone(xx*32,yy*32);
-					}else if(val == "vertical_bone") {
+					}else if(val.equals("vertical_bone")) {
 						vertiBones[xx][yy] = new Vertical_Bone(xx*32,yy*32);
-					}else if(val == "horizontal_bone") {
+					}else if(val.equals("horizontal_bone")) {
 						horiBones[xx][yy] = new Horizontal_Bone(xx*32,yy*32);
-					}else if (val == "purse") {
+					}else if (val.equals("purse")) {
 						purses.add(new Purse(xx*32,yy*32));
-					}else if (val == "crystal_ball") {
+					}else if (val.equals("crystal_ball")) {
 						crystal.add(new Crystal(xx*32,yy*32));
-					}else if (val == "gate_closed") {
+					}else if (val.equals("gate_closed")) {
 						gate[xx][yy] = new Gate(xx*32,yy*32);
-					}else if (val == "monster") {
+					}else if (val.equals("monster")) {
 						enemies.add(new Enemy(xx*32,yy*32));
-					}	
+					}
 				}
 			}
 		}
