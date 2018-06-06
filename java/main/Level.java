@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import motion.Enemy;
 import motionless.Bone;
 import motionless.Crystal;
-import motionless.Enemy;
 import motionless.Gate;
 import motionless.Horizontal_Bone;
 import motionless.Purse;

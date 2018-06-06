@@ -66,9 +66,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 		
 		addKeyListener(this);
-		player = new Player(32,32);											//add a player with his position
+		player = new Player(32,32);											//add a player and his position
 		level = new Level(levelChose);										//Choose the map to load
-		fireball = new Fireball(-32,-32);									//add the fireball outside the windows for put it in the right POSITION when we press enter		
+		fireball = new Fireball(-32,-32);									//add the fireball outside the window in the right POSITION when we press space		
 		
 		boneSprite = new SpriteSheet("/sprite/bone.png");					//Initialize all sprite
 		vertiBoneSprite = new SpriteSheet("/sprite/vertical_bone.png");
@@ -100,7 +100,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	
 	
 	
-	public synchronized void start() {		//Method for start the game								
+	public synchronized void start() {		//Method to start the game								
 		if(isRunning) return;				//look for the status of isRunning
 		isRunning = true;					
 		thread = new Thread(this);
@@ -145,8 +145,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 	}
 	
-	public void run() {								//Method for control the frame rate of the game
-		requestFocus();								//for get the focus on the opened window
+	public void run() {								//Method used to control the frame rate of the game
+		requestFocus();								//get the focus on the opened window
 		int fps = 0;
 		double timer = System.currentTimeMillis();	
 		long lastTime = System.nanoTime();
@@ -178,7 +178,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 				Player.Score = 0;										//Reset Score
 				player = new Player(32,32);								//Initialize a new player
 				level = new Level(levelChose);					//Initialize the same map
-				fireball = new Fireball(-32,-32);
+				fireball = new Fireball(-32,-32);				//Initialize a new fireball
 			}
 			
 		}
@@ -201,7 +201,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
     }
 	
-	public void keyPressed(KeyEvent e) {								//Method for take the keyboard information (when you press)
+	public void keyPressed(KeyEvent e) {								//Method needed to take the keyboard information (when you press)
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT) player.right = true;
 		if(e.getKeyCode() == KeyEvent.VK_LEFT) player.left = true;
 		if(e.getKeyCode() == KeyEvent.VK_UP) player.up = true;
@@ -212,7 +212,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		
 	}
 	
-	public void keyReleased(KeyEvent e) {								//Method for take the keyboard information (when you release)
+	public void keyReleased(KeyEvent e) {								//Method needed to take the keyboard information (when you release)
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT) player.right = false;
 		if(e.getKeyCode() == KeyEvent.VK_LEFT) player.left = false;
 		if(e.getKeyCode() == KeyEvent.VK_UP) player.up = false;

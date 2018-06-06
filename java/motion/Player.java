@@ -108,8 +108,9 @@ public class Player extends Rectangle{
 					if(bounds.intersects(level.gate[xx][yy])) {
 						Score = Score + 50;												//Add 50pts if you finish the level
 						if(Game.levelChose < 5) {
+							Game.levelChose++;
 							Game.player = new Player(32,32);							//Initialize a new player
-							Game.level = new Level(Game.levelChose+1);					//Initialize the next map
+							Game.level = new Level(Game.levelChose);					//Initialize the next map
 							Game.fireball = new Fireball(-32,-32);
 
 						}else {
